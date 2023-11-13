@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Notifications</title>
+    <!-- Include socket.io library -->
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
+</head>
+<body>
+
+<script>
+    // Establish a WebSocket connection
+    const socket = io('http://localhost:8000');
+
+    // Connect to WebSocket
+    socket.on('connect', () => {
+        console.log('Connected to WebSocket');
+        socket.emit('connect', { user_id: 'user123' });
+    });
+
+    // Listen for updates
+    socket.on('update', (data) => {
+        console.log(`New Update for ${data.user_id}: ${data.message}`);
+        // Handle the update in your frontend (e.g., show a notification)
+        // You can use a library like SweetAlert, Toastr, or your custom notification UI
+        alert(`New Update: ${data.message}`);
+    });
+</script>
+
+</body>
+</html>
